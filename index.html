@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="main.css"> -->
+    <title>Document</title>
+    <style>
+        @font-face {
+            font-family: rubik;
+            src: url(static/Rubik-Regular.ttf);
+        }
+
+        @font-face {
+            font-family: rubik;
+            src: url(static/Rubik-Bold.ttf);
+            font-weight: bold;
+        }
+
+        * {
+            font-family: rubik;
+            transition: .3s;
+        }
+
+        body {
+            text-align: center;
+            padding-left: 20px;
+            padding-right: 20px;
+
+        }
+
+        h1 {
+            font-size: 50px;
+            width: fit-content;
+            margin: auto;
+            margin-top: 20px;
+            margin-bottom: 50px;
+            font-family: rubik;
+        }
+
+        form {
+            font-size: 30px;
+        }
+
+        form input[type="number"] {
+            width: 65px;
+            font-size: 30px;
+            height: 30px;
+            text-align: center;
+        }
+
+
+        form input[type="submit"] {
+            font-size: 30px;
+            margin-top: 50px;
+            color: white;
+            background-color: rgb(179, 0, 255);
+            padding: 10px;
+            border-radius: 50%;
+            border: none;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: rgb(0, 111, 98);
+            transform: scale(1.1);
+        }
+
+        @media (max-width:767px) {
+            h1 {
+                margin-bottom: 60px;
+            }
+        }
+
+        p {
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>حاسبة النجاح</h1>
+
+    <form action="">
+        <label for="">أدخل علامتك بالوظيفة</label>
+        <input id="mark" min="0" max="100" type="number">
+        <label for="">من 100</label><br>
+        <input type="submit" value="حساب">
+
+    </form>
+    <p></p>
+    <!-- <script src="main.js"></script> -->
+    <script>document.forms[0].onsubmit = function (e) {
+            e.preventDefault();
+
+            let mark100 = document.forms[0].querySelector("#mark").value;
+            let p = document.querySelector("p");
+            if (mark100 < 40) {
+                p.innerText = "للأسف يجب الحصول على علامة 40 على الأقل لتستطيع النجاح في المقرر";
+                p.style.color = "red"
+            } else {
+                let hom30 = mark100 * 0.3;
+                let exam70 = 60 - hom30;
+                let exam100 = exam70 * (10 / 7);
+                let rounded = Math.floor(exam100);
+                p.innerText = rounded;
+                p.innerText = "علامة النجاح: " + rounded + " من 100";
+                p.style.color = "green";
+            }
+        };
+    </script>
+</body>
+
+</html>

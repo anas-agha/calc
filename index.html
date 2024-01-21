@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="main.css"> -->
+    <link rel="icon" href="icon.icon">
     <title>حاسبة النجاح</title>
     <style>
         @font-face {
@@ -58,15 +59,28 @@
         header .icon {
             display: flex;
             flex-direction: column;
+            box-sizing: border-box;
+            padding: 5px;
+            border-radius: 10px;
+            border: 2px solid transparent;
 
+        }
+
+        .iconactive {
+            border: 2px solid #333 !important;
         }
 
         header .icon span {
             width: 50px;
             height: 5px;
             background-color: black;
-            margin-bottom: 5px;
             border-radius: 10px;
+            margin-bottom: 5px;
+        }
+
+        header .icon span:last-child {
+            margin-bottom: 0px;
+
         }
 
         header .items {
@@ -139,8 +153,15 @@
             line-height: 2;
         }
 
+        .btns {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
 
-        form input[type="submit"] {
+        form .btn {
             font-size: 30px;
             margin-top: 50px;
             color: white;
@@ -152,7 +173,17 @@
             cursor: pointer;
         }
 
-        form input[type="submit"]:active {
+        form button {
+            background-color: red !important;
+            box-shadow: 0 5px 0 rgb(158, 0, 0) !important;
+        }
+
+        form button:active {
+            box-shadow: none !important;
+            transform: translateY(5px) !important;
+        }
+
+        form .btn:active {
             /* background-color: rgb(0, 111, 98); */
             box-shadow: none;
             transform: translateY(5px);
@@ -175,6 +206,7 @@
 
         p {
             font-size: 30px;
+            max-width: 90vw;
         }
 
         .page {
@@ -189,12 +221,17 @@
         .here {
             color: rgb(1, 255, 1);
         }
+
+        .iconactive {
+            box-sizing: border-box;
+            border: 3px solid #333;
+        }
     </style>
 </head>
 
 <body>
     <header>
-        <h1>حاسبة النجاح</h1>
+        <h1>حاسبة علامة النجاح</h1>
         <div class="menu">
             <div class="icon">
                 <span></span>
@@ -207,7 +244,7 @@
                         <p>حساب العلامة النهائية</p>
                     </li>
                     <li class="lihom here">
-                        <p>حاسبة النجاح</p>
+                        <p>حاسبة علامة النجاح</p>
                     </li>
                 </ul>
             </div>
@@ -219,7 +256,10 @@
             <label for="">أدخل علامتك بالوظيفة</label>
             <input id="mark" min="0" max="100" type="number">
             <label for="">من 100</label><br>
-            <input type="submit" value="حساب">
+            <div class="btns">
+                <input class="btn" type="submit" value="حساب">
+                <button class="btn">حذف</button>
+            </div>
 
         </form>
         <p class="p"></p>
@@ -232,13 +272,17 @@
             <label for="">أدخل علامتك بالامتحان</label>
             <input id="markexam" min="0" max="100" type="number">
             <label for="">من 100</label><br>
-            <input type="submit" value="حساب">
+            <div class="btns">
+                <input class="btn" type="submit" value="حساب">
+                <button class="btn">حذف</button>
+            </div>
         </form>
         <p class="pp"></p>
 
     </div>
     <!-- <script src="main.js"></script> -->
     <script>
+
         let pages = document.querySelectorAll(".page");
         let lis = document.querySelectorAll("li");
 
@@ -271,8 +315,11 @@
             menuactive = !menuactive;
             if (menuactive) {
                 itemss.classList.add("active");
+                document.querySelector(".icon").classList.add("iconactive");
+
             } else {
                 itemss.classList.remove("active");
+                document.querySelector(".icon").classList.remove("iconactive");
             }
         };
 
@@ -298,6 +345,10 @@
                 p.style.color = "green";
             }
         };
+        let btns = document.querySelectorAll("button");
+        btns[0].onclick = function () {
+            document.forms[0].querySelector("#mark").value = "";
+        };
         document.forms[1].onsubmit = function (e) {
             e.preventDefault();
 
@@ -321,18 +372,30 @@
 
                 // let rounded = Math.floor(exam100);
                 let final = hom30 + exam70;
-                if (final != Math.round(final)){
+                if (final != Math.round(final)) {
                     final = final.toFixed(1);
-                    final =Math.ceil(final);
+                    final = Math.ceil(final);
                 }
                 // p.innerText = rounded;
-                p.innerText = "علامتك النهائية: " + final + " من 100";
-                if (final >= 60) {
+                let hommor40 = true;
+                if (mark100hom < 40) {
+                    p.innerText = "علامتك النهائية: " + final + " من 100";
+                    p.innerText += " ";
+                    p.innerText += " للأسف يجب الحصول على علامة 40 من 100 في الوظيفة على الأقل لتستطيع النجاح في المقرر";
+                    hommor40 = false;
+                } else {
+                    p.innerText = "علامتك النهائية: " + final + " من 100";
+                }
+                if (final >= 60 && hommor40) {
                     p.style.color = "green";
                 } else {
                     p.style.color = "red";
                 }
             }
+        };
+        btns[1].onclick = function () {
+            document.forms[1].querySelector("#markhom").value = "";
+            document.forms[1].querySelector("#markexam").value = "";
         };
     </script>
 </body>

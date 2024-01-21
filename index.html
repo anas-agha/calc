@@ -27,16 +27,101 @@
             text-align: center;
             padding-left: 20px;
             padding-right: 20px;
-
+            overflow: hidden;
         }
 
-        h1 {
+        header {
+            display: flex;
+            padding-left: 20px;
+            padding-right: 20px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            margin-top: 0px;
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            width: 90vw;
+            box-sizing: border-box;
+            border-bottom: 1px solid #0000000f;
+            padding: 10px;
+            background-color: white;
+        }
+
+        header h1 {
             font-size: 50px;
             width: fit-content;
             margin: auto;
-            margin-top: 20px;
-            margin-bottom: 50px;
             font-family: rubik;
+        }
+
+        header .icon {
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        header .icon span {
+            width: 50px;
+            height: 5px;
+            background-color: black;
+            margin-bottom: 5px;
+            border-radius: 10px;
+        }
+
+        header .items {
+            position: absolute;
+            direction: rtl;
+            right: 0px;
+            top: 82px;
+            color: white;
+            background-color: #333;
+            border-radius: 10px;
+            opacity: 0;
+            height: 0px;
+            overflow: hidden;
+
+        }
+
+        header .active {
+
+            /* transform: translateX(-50px); */
+            opacity: 1;
+            height: auto;
+
+        }
+
+        header .items ul {
+            list-style: none;
+            padding-right: 0;
+        }
+
+        header .items p {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 0px;
+            width: fit-content;
+            padding: 0 10px;
+            margin-bottom: 40px;
+
+        }
+
+        header .items ul li {
+            cursor: pointer;
+        }
+
+        header .items ul li:hover {
+            color: rgb(1, 255, 1);
+
+        }
+
+
+        header .items ul li:first-child {
+            border-bottom: 1px solid white;
+            padding-bottom: 0px;
+            margin-bottom: 0px;
+
         }
 
         form {
@@ -53,6 +138,8 @@
         form label {
             line-height: 2;
         }
+
+
         form input[type="submit"] {
             font-size: 30px;
             margin-top: 50px;
@@ -60,50 +147,146 @@
             background-color: rgb(179, 0, 255);
             box-shadow: 0 5px 0 rgb(59 0 84);
             padding: 10px;
-            border-radius: 50%;
+            border-radius: 10px;
             border: none;
+            cursor: pointer;
         }
 
         form input[type="submit"]:active {
             /* background-color: rgb(0, 111, 98); */
             box-shadow: none;
             transform: translateY(5px);
-
             /* transform: scale(1.1); */
         }
 
+
         @media (max-width:767px) {
-            h1 {
-                margin-bottom: 60px;
+            header h1 {
+                /* margin-bottom: 60px; */
+                font-size: 32px;
+
             }
+
+            header .items {
+                top: 60px;
+            }
+
         }
 
         p {
             font-size: 30px;
         }
+
+        .page {
+            display: none;
+
+        }
+
+        .current {
+            display: block;
+        }
+
+        .here {
+            color: rgb(1, 255, 1);
+        }
     </style>
 </head>
 
 <body>
+    <header>
+        <h1>حاسبة النجاح</h1>
+        <div class="menu">
+            <div class="icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="items">
+                <ul>
+                    <li class="lifinal ">
+                        <p>حساب العلامة النهائية</p>
+                    </li>
+                    <li class="lihom here">
+                        <p>حاسبة النجاح</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
 
-    <h1>حاسبة النجاح</h1>
+    <div class="page current hom">
+        <form action="">
+            <label for="">أدخل علامتك بالوظيفة</label>
+            <input id="mark" min="0" max="100" type="number">
+            <label for="">من 100</label><br>
+            <input type="submit" value="حساب">
 
-    <form action="">
-        <label for="">أدخل علامتك بالوظيفة</label>
-        <input id="mark" min="0" max="100" type="number">
-        <label for="">من 100</label><br>
-        <input type="submit" value="حساب">
+        </form>
+        <p class="p"></p>
+    </div>
+    <div class="page final">
+        <form action="">
+            <label for="">أدخل علامتك بالوظيفة</label>
+            <input id="markhom" min="0" max="100" type="number">
+            <label for="">من 100</label><br>
+            <label for="">أدخل علامتك بالامتحان</label>
+            <input id="markexam" min="0" max="100" type="number">
+            <label for="">من 100</label><br>
+            <input type="submit" value="حساب">
+        </form>
+        <p class="pp"></p>
 
-    </form>
-    <p></p>
+    </div>
     <!-- <script src="main.js"></script> -->
-    <script>document.forms[0].onsubmit = function (e) {
+    <script>
+        let pages = document.querySelectorAll(".page");
+        let lis = document.querySelectorAll("li");
+
+        for (var i = 0; i < lis.length; i++) {
+            lis[i].addEventListener("click", function () {
+                var current = document.getElementsByClassName("here");
+                current[0].className = current[0].className.replace("here", "");
+                this.className += "here";
+            });
+        }
+
+        lis[0].addEventListener("click", function () {
+            pages[1].classList.add("current");
+            pages[0].classList.remove("current");
+            document.querySelector("h1").innerHTML = "حاسبة العلامة النهائية"
+        });
+        lis[1].addEventListener("click", function () {
+            pages[0].classList.add("current");
+            pages[1].classList.remove("current");
+            document.querySelector("h1").innerHTML = "حاسبة علامة النجاح ";
+        });
+
+
+
+
+        let menuactive = false;
+        let menu = document.querySelector(".menu");
+        let itemss = document.querySelector(".items");
+        menu.onclick = function () {
+            menuactive = !menuactive;
+            if (menuactive) {
+                itemss.classList.add("active");
+            } else {
+                itemss.classList.remove("active");
+            }
+        };
+
+        document.forms[0].onsubmit = function (e) {
             e.preventDefault();
 
             let mark100 = document.forms[0].querySelector("#mark").value;
-            let p = document.querySelector("p");
-            if (mark100 < 40) {
-                p.innerText = "للأسف يجب الحصول على علامة 40 على الأقل لتستطيع النجاح في المقرر";
+            let p = document.querySelector(".p");
+            if (mark100.length < 1) {
+                p.innerText = "يرجى ادخال علامة الوظيفة";
+                p.style.color = "black";
+
+            } else if (mark100 < 40) {
+                p.innerText = "للأسف يجب الحصول على علامة 40 من 100 في الوظيفة على الأقل لتستطيع النجاح في المقرر";
                 p.style.color = "red"
             } else {
                 let hom30 = mark100 * 0.3;
@@ -113,6 +296,42 @@
                 p.innerText = rounded;
                 p.innerText = "علامة النجاح: " + rounded + " من 100";
                 p.style.color = "green";
+            }
+        };
+        document.forms[1].onsubmit = function (e) {
+            e.preventDefault();
+
+            let mark100hom = document.forms[1].querySelector("#markhom").value;
+            let mark100exam = document.forms[1].querySelector("#markexam").value;
+            let p = document.querySelector(".pp");
+            if (mark100exam.length < 1 && mark100hom.length < 1) {
+                p.innerText = " يرجى ادخال علامة الامتحان و الوظيفة";
+                p.style.color = "black";
+
+            } else if (mark100exam.length < 1) {
+                p.innerText = "يرجى ادخال علامة الامتحان";
+                p.style.color = "black";
+
+            } else if (mark100hom.length < 1) {
+                p.innerText = "يرجى ادخال علامة الوظيفة";
+                p.style.color = "black";
+            } else {
+                let hom30 = mark100hom * 0.3;
+                let exam70 = mark100exam * 0.7;
+
+                // let rounded = Math.floor(exam100);
+                let final = hom30 + exam70;
+                if (final != Math.round(final)){
+                    final = final.toFixed(1);
+                    final =Math.ceil(final);
+                }
+                // p.innerText = rounded;
+                p.innerText = "علامتك النهائية: " + final + " من 100";
+                if (final >= 60) {
+                    p.style.color = "green";
+                } else {
+                    p.style.color = "red";
+                }
             }
         };
     </script>

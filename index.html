@@ -1,403 +1,382 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- <link rel="stylesheet" href="main.css"> -->
-    <link rel="icon" href="icon.icon">
+    <link rel="icon" href="icon.icon" />
     <title>حاسبة النجاح</title>
     <style>
-        @font-face {
-            font-family: rubik;
-            src: url(static/Rubik-Regular.ttf);
-        }
+      @font-face {
+        font-family: rubik;
+        src: url(static/Rubik-Regular.ttf);
+      }
 
-        @font-face {
-            font-family: rubik;
-            src: url(static/Rubik-Bold.ttf);
-            font-weight: bold;
-        }
+      @font-face {
+        font-family: rubik;
+        src: url(static/Rubik-Bold.ttf);
+        font-weight: bold;
+      }
 
-        * {
-            font-family: rubik;
-            transition: .3s;
-        }
+      * {
+        font-family: rubik;
+        transition: 0.3s;
+      }
 
-        body {
-            text-align: center;
-            padding-left: 20px;
-            padding-right: 20px;
-            overflow-x: hidden;
-        }
+      body {
+        text-align: center;
+        padding-left: 20px;
+        padding-right: 20px;
+        overflow-x: hidden;
+      }
 
-        header {
-            display: flex;
-            padding-left: 20px;
-            padding-right: 20px;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 50px;
-            margin-top: 0px;
-            position: relative;
-            margin-left: auto;
-            margin-right: auto;
-            width: 90vw;
-            box-sizing: border-box;
-            border-bottom: 1px solid #0000000f;
-            padding: 10px;
-            background-color: white;
-        }
+      header {
+        display: flex;
+        padding-left: 20px;
+        padding-right: 20px;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 50px;
+        margin-top: 0px;
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+        width: 90vw;
+        box-sizing: border-box;
+        border-bottom: 1px solid #0000000f;
+        padding: 10px;
+        background-color: white;
+      }
 
+      header h1 {
+        font-size: 50px;
+        width: fit-content;
+        margin: auto;
+        font-family: rubik;
+      }
+
+      header .icon {
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        padding: 5px;
+        border-radius: 10px;
+        border: 2px solid transparent;
+      }
+
+      .iconactive {
+        border: 2px solid #333 !important;
+      }
+
+      header .icon span {
+        width: 50px;
+        height: 5px;
+        background-color: black;
+        border-radius: 10px;
+        margin-bottom: 5px;
+      }
+
+      header .icon span:last-child {
+        margin-bottom: 0px;
+      }
+
+      header .items {
+        position: absolute;
+        direction: rtl;
+        right: 0px;
+        top: 82px;
+        color: white;
+        background-color: #333;
+        border-radius: 10px;
+        /* opacity: 0; */
+        /* height: 0px; */
+        overflow: hidden;
+        transform: rotateX(90deg);
+      }
+
+      header .active {
+        /* transform: translateX(-50px); */
+        transform: rotateX(0deg);
+        /* opacity: 1; */
+        height: auto;
+      }
+
+      header .items ul {
+        list-style: none;
+        padding-right: 0;
+      }
+
+      header .items p {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 0px;
+        width: fit-content;
+        padding: 0 10px;
+        margin-bottom: 40px;
+      }
+
+      header .items ul li {
+        cursor: pointer;
+      }
+
+      header .items ul li:hover {
+        color: rgb(1, 255, 1);
+      }
+
+      header .items ul li:first-child {
+        border-bottom: 1px solid white;
+        padding-bottom: 0px;
+        margin-bottom: 0px;
+      }
+
+      form {
+        font-size: 30px;
+      }
+
+      form input[type="number"] {
+        width: 65px;
+        font-size: 30px;
+        height: 30px;
+        text-align: center;
+      }
+
+      form label {
+        line-height: 2;
+      }
+
+      .btns {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+      }
+
+      form .btn {
+        font-size: 30px;
+        margin-top: 50px;
+        color: white;
+        background-color: rgb(179, 0, 255);
+        box-shadow: 0 5px 0 rgb(59 0 84);
+        padding: 10px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+      }
+
+      form button {
+        background-color: red !important;
+        box-shadow: 0 5px 0 rgb(158, 0, 0) !important;
+      }
+
+      form button:active {
+        box-shadow: none !important;
+        transform: translateY(5px) !important;
+      }
+
+      form .btn:active {
+        /* background-color: rgb(0, 111, 98); */
+        box-shadow: none;
+        transform: translateY(5px);
+        /* transform: scale(1.1); */
+      }
+
+      @media (max-width: 767px) {
         header h1 {
-            font-size: 50px;
-            width: fit-content;
-            margin: auto;
-            font-family: rubik;
-        }
-
-        header .icon {
-            display: flex;
-            flex-direction: column;
-            box-sizing: border-box;
-            padding: 5px;
-            border-radius: 10px;
-            border: 2px solid transparent;
-
-        }
-
-        .iconactive {
-            border: 2px solid #333 !important;
-        }
-
-        header .icon span {
-            width: 50px;
-            height: 5px;
-            background-color: black;
-            border-radius: 10px;
-            margin-bottom: 5px;
-        }
-
-        header .icon span:last-child {
-            margin-bottom: 0px;
-
+          /* margin-bottom: 60px; */
+          font-size: 30px;
         }
 
         header .items {
-            position: absolute;
-            direction: rtl;
-            right: 0px;
-            top: 82px;
-            color: white;
-            background-color: #333;
-            border-radius: 10px;
-            opacity: 0;
-            height: 0px;
-            overflow: hidden;
-
+          top: 60px;
         }
+      }
 
-        header .active {
+      p {
+        font-size: 30px;
+        max-width: 90vw;
+      }
 
-            /* transform: translateX(-50px); */
-            opacity: 1;
-            height: auto;
+      .page {
+        display: none;
+      }
 
-        }
+      .current {
+        display: block;
+      }
 
-        header .items ul {
-            list-style: none;
-            padding-right: 0;
-        }
+      .here {
+        color: rgb(1, 255, 1);
+      }
 
-        header .items p {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 0px;
-            width: fit-content;
-            padding: 0 10px;
-            margin-bottom: 40px;
-
-        }
-
-        header .items ul li {
-            cursor: pointer;
-        }
-
-        header .items ul li:hover {
-            color: rgb(1, 255, 1);
-
-        }
-
-
-        header .items ul li:first-child {
-            border-bottom: 1px solid white;
-            padding-bottom: 0px;
-            margin-bottom: 0px;
-
-        }
-
-        form {
-            font-size: 30px;
-        }
-
-        form input[type="number"] {
-            width: 65px;
-            font-size: 30px;
-            height: 30px;
-            text-align: center;
-        }
-
-        form label {
-            line-height: 2;
-        }
-
-        .btns {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
-        }
-
-        form .btn {
-            font-size: 30px;
-            margin-top: 50px;
-            color: white;
-            background-color: rgb(179, 0, 255);
-            box-shadow: 0 5px 0 rgb(59 0 84);
-            padding: 10px;
-            border-radius: 10px;
-            border: none;
-            cursor: pointer;
-        }
-
-        form button {
-            background-color: red !important;
-            box-shadow: 0 5px 0 rgb(158, 0, 0) !important;
-        }
-
-        form button:active {
-            box-shadow: none !important;
-            transform: translateY(5px) !important;
-        }
-
-        form .btn:active {
-            /* background-color: rgb(0, 111, 98); */
-            box-shadow: none;
-            transform: translateY(5px);
-            /* transform: scale(1.1); */
-        }
-
-
-        @media (max-width:767px) {
-            header h1 {
-                /* margin-bottom: 60px; */
-                font-size: 30px;
-
-            }
-
-            header .items {
-                top: 60px;
-            }
-
-        }
-
-        p {
-            font-size: 30px;
-            max-width: 90vw;
-        }
-
-        .page {
-            display: none;
-
-        }
-
-        .current {
-            display: block;
-        }
-
-        .here {
-            color: rgb(1, 255, 1);
-        }
-
-        .iconactive {
-            box-sizing: border-box;
-            border: 3px solid #333;
-        }
+      .iconactive {
+        box-sizing: border-box;
+        border: 3px solid #333;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <header>
-        <h1>حاسبة علامة النجاح</h1>
-        <div class="menu">
-            <div class="icon">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <div class="items">
-                <ul>
-                    <li class="lifinal ">
-                        <p>حساب العلامة النهائية</p>
-                    </li>
-                    <li class="lihom here">
-                        <p>حاسبة علامة النجاح</p>
-                    </li>
-                </ul>
-            </div>
+      <h1>حاسبة علامة النجاح</h1>
+      <div class="menu">
+        <div class="icon">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
+        <div class="items">
+          <ul>
+            <li class="lifinal">
+              <p>حساب العلامة النهائية</p>
+            </li>
+            <li class="lihom here">
+              <p>حاسبة علامة النجاح</p>
+            </li>
+          </ul>
+        </div>
+      </div>
     </header>
 
     <div class="page current hom">
-        <form action="">
-            <label for="">أدخل علامتك بالوظيفة</label>
-            <input id="mark" min="0" max="100" type="number">
-            <label for="">من 100</label><br>
-            <div class="btns">
-                <input class="btn" type="submit" value="حساب">
-                <button class="btn">حذف</button>
-            </div>
-
-        </form>
-        <p class="p"></p>
+      <form action="">
+        <label for="">أدخل علامتك بالوظيفة</label>
+        <input id="mark" step="any" min="0" max="100" type="number" />
+        <label for="">من 100</label><br />
+        <div class="btns">
+          <input class="btn" type="submit" value="حساب" />
+          <button class="btn">حذف</button>
+        </div>
+      </form>
+      <p class="p"></p>
     </div>
     <div class="page final">
-        <form action="">
-            <label for="">أدخل علامتك بالوظيفة</label>
-            <input id="markhom" min="0" max="100" type="number">
-            <label for="">من 100</label><br>
-            <label for="">أدخل علامتك بالامتحان</label>
-            <input id="markexam" min="0" max="100" type="number">
-            <label for="">من 100</label><br>
-            <div class="btns">
-                <input class="btn" type="submit" value="حساب">
-                <button class="btn">حذف</button>
-            </div>
-        </form>
-        <p class="pp"></p>
-
+      <form action="">
+        <label for="">أدخل علامتك بالوظيفة</label>
+        <input id="markhom" step="any" min="0" max="100" type="number" />
+        <label for="">من 100</label><br />
+        <label for="">أدخل علامتك بالامتحان</label>
+        <input id="markexam" step="any" min="0" max="100" type="number" />
+        <label for="">من 100</label><br />
+        <div class="btns">
+          <input class="btn" type="submit" value="حساب" />
+          <button class="btn">حذف</button>
+        </div>
+      </form>
+      <p class="pp"></p>
     </div>
     <!-- <script src="main.js"></script> -->
     <script>
+      let pages = document.querySelectorAll(".page");
+      let lis = document.querySelectorAll("li");
 
-        let pages = document.querySelectorAll(".page");
-        let lis = document.querySelectorAll("li");
+      for (var i = 0; i < lis.length; i++) {
+        lis[i].addEventListener("click", function () {
+          var current = document.getElementsByClassName("here");
+          current[0].className = current[0].className.replace("here", "");
+          this.className += "here";
+        });
+      }
 
-        for (var i = 0; i < lis.length; i++) {
-            lis[i].addEventListener("click", function () {
-                var current = document.getElementsByClassName("here");
-                current[0].className = current[0].className.replace("here", "");
-                this.className += "here";
-            });
+      lis[0].addEventListener("click", function () {
+        pages[1].classList.add("current");
+        pages[0].classList.remove("current");
+        document.querySelector("h1").innerHTML = "حاسبة العلامة النهائية";
+      });
+      lis[1].addEventListener("click", function () {
+        pages[0].classList.add("current");
+        pages[1].classList.remove("current");
+        document.querySelector("h1").innerHTML = "حاسبة علامة النجاح ";
+      });
+
+      let menuactive = false;
+      let menu = document.querySelector(".menu");
+      let itemss = document.querySelector(".items");
+      menu.onclick = function () {
+        menuactive = !menuactive;
+        if (menuactive) {
+          itemss.classList.add("active");
+          document.querySelector(".icon").classList.add("iconactive");
+        } else {
+          itemss.classList.remove("active");
+          document.querySelector(".icon").classList.remove("iconactive");
         }
+      };
 
-        lis[0].addEventListener("click", function () {
-            pages[1].classList.add("current");
-            pages[0].classList.remove("current");
-            document.querySelector("h1").innerHTML = "حاسبة العلامة النهائية"
-        });
-        lis[1].addEventListener("click", function () {
-            pages[0].classList.add("current");
-            pages[1].classList.remove("current");
-            document.querySelector("h1").innerHTML = "حاسبة علامة النجاح ";
-        });
+      document.forms[0].onsubmit = function (e) {
+        e.preventDefault();
 
+        let mark100 = document.forms[0].querySelector("#mark").value;
+        let p = document.querySelector(".p");
+        if (mark100.length < 1) {
+          p.innerText = "يرجى ادخال علامة الوظيفة";
+          p.style.color = "black";
+        } else if (mark100 < 40) {
+          p.innerText =
+            "للأسف يجب الحصول على علامة 40 من 100 في الوظيفة على الأقل لتستطيع النجاح في المقرر";
+          p.style.color = "red";
+        } else {
+          let hom30 = mark100 * 0.3;
+          let exam70 = 60 - hom30;
+          let exam100 = exam70 * (10 / 7);
+          let rounded = Math.floor(exam100);
+          p.innerText = rounded;
+          p.innerText = "علامة النجاح: " + rounded + " من 100";
+          p.style.color = "green";
+        }
+      };
+      let btns = document.querySelectorAll("button");
+      btns[0].onclick = function () {
+        document.forms[0].querySelector("#mark").value = "";
+      };
+      document.forms[1].onsubmit = function (e) {
+        e.preventDefault();
 
+        let mark100hom = document.forms[1].querySelector("#markhom").value;
+        let mark100exam = document.forms[1].querySelector("#markexam").value;
+        let p = document.querySelector(".pp");
+        if (mark100exam.length < 1 && mark100hom.length < 1) {
+          p.innerText = " يرجى ادخال علامة الامتحان و الوظيفة";
+          p.style.color = "black";
+        } else if (mark100exam.length < 1) {
+          p.innerText = "يرجى ادخال علامة الامتحان";
+          p.style.color = "black";
+        } else if (mark100hom.length < 1) {
+          p.innerText = "يرجى ادخال علامة الوظيفة";
+          p.style.color = "black";
+        } else {
+          let hom30 = mark100hom * 0.3;
+          let exam70 = mark100exam * 0.7;
 
-
-        let menuactive = false;
-        let menu = document.querySelector(".menu");
-        let itemss = document.querySelector(".items");
-        menu.onclick = function () {
-            menuactive = !menuactive;
-            if (menuactive) {
-                itemss.classList.add("active");
-                document.querySelector(".icon").classList.add("iconactive");
-
-            } else {
-                itemss.classList.remove("active");
-                document.querySelector(".icon").classList.remove("iconactive");
-            }
-        };
-
-        document.forms[0].onsubmit = function (e) {
-            e.preventDefault();
-
-            let mark100 = document.forms[0].querySelector("#mark").value;
-            let p = document.querySelector(".p");
-            if (mark100.length < 1) {
-                p.innerText = "يرجى ادخال علامة الوظيفة";
-                p.style.color = "black";
-
-            } else if (mark100 < 40) {
-                p.innerText = "للأسف يجب الحصول على علامة 40 من 100 في الوظيفة على الأقل لتستطيع النجاح في المقرر";
-                p.style.color = "red"
-            } else {
-                let hom30 = mark100 * 0.3;
-                let exam70 = 60 - hom30;
-                let exam100 = exam70 * (10 / 7);
-                let rounded = Math.floor(exam100);
-                p.innerText = rounded;
-                p.innerText = "علامة النجاح: " + rounded + " من 100";
-                p.style.color = "green";
-            }
-        };
-        let btns = document.querySelectorAll("button");
-        btns[0].onclick = function () {
-            document.forms[0].querySelector("#mark").value = "";
-        };
-        document.forms[1].onsubmit = function (e) {
-            e.preventDefault();
-
-            let mark100hom = document.forms[1].querySelector("#markhom").value;
-            let mark100exam = document.forms[1].querySelector("#markexam").value;
-            let p = document.querySelector(".pp");
-            if (mark100exam.length < 1 && mark100hom.length < 1) {
-                p.innerText = " يرجى ادخال علامة الامتحان و الوظيفة";
-                p.style.color = "black";
-
-            } else if (mark100exam.length < 1) {
-                p.innerText = "يرجى ادخال علامة الامتحان";
-                p.style.color = "black";
-
-            } else if (mark100hom.length < 1) {
-                p.innerText = "يرجى ادخال علامة الوظيفة";
-                p.style.color = "black";
-            } else {
-                let hom30 = mark100hom * 0.3;
-                let exam70 = mark100exam * 0.7;
-
-                // let rounded = Math.floor(exam100);
-                let final = hom30 + exam70;
-                if (final != Math.round(final)) {
-                    final = final.toFixed(1);
-                    final = Math.ceil(final);
-                }
-                // p.innerText = rounded;
-                let hommor40 = true;
-                if (mark100hom < 40) {
-                    p.innerText = "علامتك النهائية: " + final + " من 100";
-                    p.innerText += " ";
-                    p.innerText += " للأسف يجب الحصول على علامة 40 من 100 في الوظيفة على الأقل لتستطيع النجاح في المقرر";
-                    hommor40 = false;
-                } else {
-                    p.innerText = "علامتك النهائية: " + final + " من 100";
-                }
-                if (final >= 60 && hommor40) {
-                    p.style.color = "green";
-                } else {
-                    p.style.color = "red";
-                }
-            }
-        };
-        btns[1].onclick = function () {
-            document.forms[1].querySelector("#markhom").value = "";
-            document.forms[1].querySelector("#markexam").value = "";
-        };
+          // let rounded = Math.floor(exam100);
+          let final = hom30 + exam70;
+          if (final != Math.round(final)) {
+            final = final.toFixed(1);
+            final = Math.ceil(final);
+          }
+          // p.innerText = rounded;
+          let hommor40 = true;
+          if (mark100hom < 40) {
+            p.innerText = "علامتك النهائية: " + final + " من 100";
+            p.innerText += " ";
+            p.innerText +=
+              " للأسف يجب الحصول على علامة 40 من 100 في الوظيفة على الأقل لتستطيع النجاح في المقرر";
+            hommor40 = false;
+          } else {
+            p.innerText = "علامتك النهائية: " + final + " من 100";
+          }
+          if (final >= 60 && hommor40) {
+            p.style.color = "green";
+          } else {
+            p.style.color = "red";
+          }
+        }
+      };
+      btns[1].onclick = function () {
+        document.forms[1].querySelector("#markhom").value = "";
+        document.forms[1].querySelector("#markexam").value = "";
+      };
     </script>
-</body>
-
+  </body>
 </html>

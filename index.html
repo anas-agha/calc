@@ -189,7 +189,7 @@
         }
 
         header .items {
-          top: 60px;
+          /* top: 80px; */
         }
       }
 
@@ -274,8 +274,8 @@
       for (var i = 0; i < lis.length; i++) {
         lis[i].addEventListener("click", function () {
           var current = document.getElementsByClassName("here");
-          current[0].className = current[0].className.replace("here", "");
-          this.className += "here";
+          current[0].className = current[0].className.replace(" here", "");
+          this.className += " here";
         });
       }
 
@@ -373,7 +373,8 @@
           }
         }
       };
-      btns[1].onclick = function () {
+      btns[1].onclick = function (e) {
+        e.preventDefault();
         document.forms[1].querySelector("#markhom").value = "";
         document.forms[1].querySelector("#markexam").value = "";
       };
